@@ -4,6 +4,10 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      Inter: ["Inter", "sans-serif"],
+      Fasthand: ["Fasthand", "cursive"],
+    },
     extend: {},
   },
   plugins: [],

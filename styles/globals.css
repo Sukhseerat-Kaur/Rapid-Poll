@@ -18,3 +18,10 @@ a {
 * {
   box-sizing: border-box;
 }
+
+input:checked ~ .dot {
+  transform: translateX(100%);
+}
+input:checked ~ .block {
+  background-color: #f2404c;
+}
