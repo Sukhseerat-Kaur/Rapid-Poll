@@ -9,4 +9,5 @@ export interface PollType {
   question: string;
   options: Array<OptionType>;
   totalVotes: number;
+  expireAfter: null | string;
 }
