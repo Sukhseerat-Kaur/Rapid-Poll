@@ -61,39 +61,42 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <main className="container mx-auto w-3/5 py-8">
-        <div className="text-3xl font-semibold mb-6 text-gray-700">
+        <div className="text-3xl font-bold mb-6 text-gray-700">
           Create a New Poll
         </div>
         <form>
           <div className="flex flex-col gap-5">
             <div>
+              <div className="text-xl font-semibold text-gray-500 mb-2">
+                Question
+              </div>
               <textarea
                 required
-                placeholder="Question"
+                placeholder="Which is your favourite programming language?"
                 value={data.question}
                 onChange={(e) => setData({ ...data, question: e.target.value })}
                 name="question"
-                className="w-full mb-2 p-6 text-lg text-gray-700 placeholder-gray-400 rounded-md resize-none outline-none shadow-md focus:shadow-lg focus:scale-105 transition duration-300 font-medium"
+                className="w-full mb-2 p-4 h-28 text-lg text-gray-700 placeholder-gray-300 rounded-md resize-none outline-none shadow-sm focus:shadow-md focus:scale-105 transition duration-300 font-medium"
               />
 
               {/* -------expire after a fixed time starts-------- */}
 
               {/* <div className="w-full flex justify-end gap-5">
-              <Toggler
-                label="Auto expire after a fixed time"
-                setShowDateTimeInput={setShowDateTimeInput}
-              />
-              {showDateTimeInput && (
-                <input
-                  type="datetime-local"
-                  value={data.expireAfter ? data.expireAfter : ""}
-                  onChange={(e) =>
-                    setData({ ...data, expireAfter: e.target.value })
-                  }
-                  className="rounded-md p-2 cursor-pointer"
+                <Toggler
+                  label="Auto expire after a fixed time"
+                  setShowDateTimeInput={setShowDateTimeInput}
                 />
-              )}
-            </div> */}
+                {showDateTimeInput && (
+                  <input
+                    type="datetime-local"
+                    value={data.expireAfter ? data.expireAfter : ""}
+                    onChange={(e) =>
+                      setData({ ...data, expireAfter: e.target.value })
+                    }
+                    className="rounded-md p-2 cursor-pointer"
+                  />
+                )}
+              </div> */}
 
               {/* -------expire after a fixed time starts ends -------- */}
             </div>

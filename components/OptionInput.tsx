@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import clsx from "clsx";
 import { DeleteIcon } from "../assets/Icons";
 
 interface OptionInputProps {
@@ -20,21 +21,32 @@ const OptionInput = ({
   console.log(`re-rendered ${index + 1}`);
 
   return (
-    <div className="mt-4 flex justify-around items-center">
-      <input
-        required
-        type="text"
-        placeholder={`Option ${index + 1}`}
-        value={value}
-        onChange={(e) => handleChange(e, index)}
-        className=" w-11/12 p-3 text-lg text-gray-700 placeholder-gray-400 rounded-md outline-none shadow-sm border-2 border-red-300 font-medium"
-      />
-      {showDelete && (
-        <DeleteIcon
-          className="h-7 w-7 cursor-pointer text-red-500"
-          onClick={() => handleDelete(id)}
+    <div className="flex flex-col text-gray-500 font-semibold gap-2 text-lg">
+      <div>Option {index + 1}</div>
+      <div
+        className={clsx("flex items-center", {
+          "justify-between": showDelete,
+        })}
+      >
+        <input
+          autoFocus
+          required
+          type="text"
+          placeholder={`Option ${index + 1}`}
+          value={value}
+          onChange={(e) => handleChange(e, index)}
+          className={clsx(
+            "p-3 text-lg text-gray-700 placeholder-gray-300 rounded-md outline-none shadow-sm font-medium focus:scale-105 focus:shadow-md transition duration-300",
+            { "w-11/12": showDelete, "w-full": !showDelete }
+          )}
         />
-      )}
+        {showDelete && (
+          <DeleteIcon
+            className="h-7 w-7 cursor-pointer text-red-500"
+            onClick={() => handleDelete(id)}
+          />
+        )}
+      </div>
     </div>
   );
 };
