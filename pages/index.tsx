@@ -1,5 +1,3 @@
-import "moment-timezone";
-import moment from "moment";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
