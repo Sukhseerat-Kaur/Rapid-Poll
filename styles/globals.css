@@ -23,5 +23,5 @@ input:checked ~ .dot {
   transform: translateX(100%);
 }
 input:checked ~ .block {
-  background-color: #f2404c;
+  background-color: rgb(37 99 235);
 }

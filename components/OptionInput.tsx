@@ -6,7 +6,7 @@ interface OptionInputProps {
   value: string;
   id: number;
   index: number;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void;
+  handleChange: (val: string, index: number) => void;
   handleDelete: (id: number) => void;
   showDelete: boolean;
 }
@@ -34,7 +34,7 @@ const OptionInput = ({
           type="text"
           placeholder={`Option ${index + 1}`}
           value={value}
-          onChange={(e) => handleChange(e, index)}
+          onChange={(e) => handleChange(e.target.value, index)}
           className={clsx(
             "p-3 text-lg text-gray-700 placeholder-gray-300 rounded-md outline-none shadow-sm font-medium focus:scale-105 focus:shadow-md transition duration-300",
             { "w-11/12": showDelete, "w-full": !showDelete }

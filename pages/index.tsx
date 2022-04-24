@@ -22,26 +22,22 @@ const Home: NextPage = () => {
     expireAfter: null,
   });
 
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleChange = useCallback((val: string, index: number) => {
+    setData((data) => {
       let newOptions = [...data.options];
-      newOptions[index].name = e.target.value;
-      setData({ ...data, options: newOptions });
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data.options]
-  );
+      newOptions[index].name = val;
+      return { ...data, options: newOptions };
+    });
+  }, []);
 
-  const handleDelete = useCallback(
-    (id: number) => {
-      setData({
+  const handleDelete = useCallback((id: number) => {
+    setData((data) => {
+      return {
         ...data,
         options: data.options.filter((opt) => opt.id !== id),
-      });
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data.options]
-  );
+      };
+    });
+  }, []);
 
   const addOption = () => {
     setData({
@@ -81,7 +77,7 @@ const Home: NextPage = () => {
 
               {/* -------expire after a fixed time starts-------- */}
 
-              {/* <div className="w-full flex justify-end gap-5">
+              <div className="w-full flex justify-end gap-5">
                 <Toggler
                   label="Auto expire after a fixed time"
                   setShowDateTimeInput={setShowDateTimeInput}
@@ -96,7 +92,7 @@ const Home: NextPage = () => {
                     className="rounded-md p-2 cursor-pointer"
                   />
                 )}
-              </div> */}
+              </div>
 
               {/* -------expire after a fixed time starts ends -------- */}
             </div>
