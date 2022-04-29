@@ -5,9 +5,9 @@ export interface OptionType {
 }
 
 export interface PollType {
-  id?: number;
+  key: string;
   question: string;
   options: Array<OptionType>;
   totalVotes: number;
-  expireAfter: null | string;
+  // expireAfter: null | number;
 }

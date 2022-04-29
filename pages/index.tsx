@@ -8,19 +8,25 @@ import OptionInput from "../components/OptionInput";
 import Toggler from "../components/Toggler";
 import useUid from "../Hooks/useUid";
 import { OptionType, PollType } from "../interfaces/PollType";
+import { pollsRef } from "../firebase";
+import { getRandomString } from "../utils";
+import { addDoc } from "firebase/firestore";
+import Router from "next/router";
 
 const Home: NextPage = () => {
   const getId = useUid();
-  const [showDateTimeInput, setShowDateTimeInput] = useState(false);
+  // const [showDateTimeInput, setShowDateTimeInput] = useState(false);
   const [data, setData] = useState<PollType>({
+    key: getRandomString(),
     question: "",
     options: [
       { id: getId(), name: "", votes: 0 },
       { id: getId(), name: "", votes: 0 },
     ],
     totalVotes: 0,
-    expireAfter: null,
+    // expireAfter: null,
   });
+  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const handleChange = useCallback((val: string, index: number) => {
     setData((data) => {
@@ -46,8 +52,12 @@ const Home: NextPage = () => {
     });
   };
 
-  const createPoll = () => {
+  const createPoll = async () => {
     console.log(data);
+    setShowLoader(true);
+    const docRef = await addDoc(pollsRef, data);
+    setShowLoader(false);
+    Router.push(`/new/${docRef.id}`);
   };
 
   return (
@@ -77,7 +87,7 @@ const Home: NextPage = () => {
 
               {/* -------expire after a fixed time starts-------- */}
 
-              <div className="w-full flex justify-end gap-5">
+              {/* <div className="w-full flex justify-end gap-5">
                 <Toggler
                   label="Auto expire after a fixed time"
                   setShowDateTimeInput={setShowDateTimeInput}
@@ -86,13 +96,13 @@ const Home: NextPage = () => {
                   <input
                     type="datetime-local"
                     value={data.expireAfter ? data.expireAfter : ""}
-                    onChange={(e) =>
-                      setData({ ...data, expireAfter: e.target.value })
-                    }
+                    // onChange={(e) =>
+                    //   setData({ ...data, expireAfter: e.target.value })
+                    // }
                     className="rounded-md p-2 cursor-pointer"
                   />
                 )}
-              </div>
+              </div> */}
 
               {/* -------expire after a fixed time starts ends -------- */}
             </div>
