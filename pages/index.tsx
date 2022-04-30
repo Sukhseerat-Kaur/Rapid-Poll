@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
+import clsx from "clsx";
 import { useCallback, useState } from "react";
 import { ChevronDoubleRight, PlusIcon } from "../assets/Icons";
 import Header from "../components/Header";
@@ -27,6 +27,7 @@ const Home: NextPage = () => {
     // expireAfter: null,
   });
   const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [formError, setFormError] = useState<boolean>(false);
 
   const handleChange = useCallback((val: string, index: number) => {
     setData((data) => {
@@ -67,7 +68,7 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <main className="container mx-auto w-3/5 py-8">
-        <div className="text-3xl font-bold mb-6 text-gray-700">
+        <div className="text-3xl font-bold mb-10 text-red-600 text-center">
           Create a New Poll
         </div>
         <form>
@@ -82,8 +83,19 @@ const Home: NextPage = () => {
                 value={data.question}
                 onChange={(e) => setData({ ...data, question: e.target.value })}
                 name="question"
-                className="w-full mb-2 p-4 h-28 text-lg text-gray-700 placeholder-gray-300 rounded-md resize-none outline-none shadow-sm focus:shadow-md focus:scale-105 transition duration-300 font-medium"
+                className={clsx(
+                  "w-full mb-2 p-4 h-28 text-lg text-gray-700 placeholder-gray-300 rounded-md resize-none outline-none shadow-sm focus:shadow-md focus:scale-105 transition duration-300 font-medium",
+                  {
+                    "ring-red-300 ring mb-0":
+                      formError && !data.question.trim(),
+                  }
+                )}
               />
+              {formError && !data.question.trim() && (
+                <span className="text-red-400 text-sm font-medium">
+                  Question field cannot be empty
+                </span>
+              )}
 
               {/* -------expire after a fixed time starts-------- */}
 
@@ -115,6 +127,7 @@ const Home: NextPage = () => {
                 handleChange={handleChange}
                 handleDelete={handleDelete}
                 showDelete={data.options.length > 2}
+                error={formError}
               />
             ))}
 
