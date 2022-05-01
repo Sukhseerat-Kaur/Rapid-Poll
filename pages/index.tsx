@@ -54,6 +54,13 @@ const Home: NextPage = () => {
   };
 
   const createPoll = async () => {
+    if (
+      data.question.length === 0 ||
+      data.options.some((op) => op.name.length === 0)
+    ) {
+      setFormError(true);
+      return;
+    }
     console.log(data);
     setShowLoader(true);
     const docRef = await addDoc(pollsRef, data);
