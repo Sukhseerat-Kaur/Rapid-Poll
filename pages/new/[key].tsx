@@ -6,6 +6,7 @@ import { ArrowRight, CopyIcon } from "../../assets/Icons";
 import ShareOnWhatsapp from "../../components/SocialButtons/ShareOnWhatsapp";
 import ShareOnTwitter from "../../components/SocialButtons/ShareOnTwitter";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 interface Props {
   host: string | null;
@@ -42,7 +43,7 @@ const PollCreated = (props: Props) => {
       <Header />
       <main className="flex-1 flex justify-center items-center shadow-sm flex-col gap-10">
         <div className="text-3xl font-bold mb-14 text-red-600">
-          Your poll has been created successfully
+          Poll Created Successfully
         </div>
         <div className="w-2/5 flex flex-col gap-5">
           <div className="w-full h-max content shadow-md rounded-md bg-white p-4 pb-2 flex flex-col justify-center gap-3">
@@ -74,34 +75,6 @@ const PollCreated = (props: Props) => {
           </div>
 
           <div className="flex w-full gap-6 p-4 justify-center flex-wrap">
-            {/* <a
-                className="bg-green-500 text-white py-2 px-4 rounded-full hover:bg-green-600 flex items-center gap-1 font-semibold w-1/4"
-                type="button"
-                target="_blank"
-                rel="noreferrer"
-                href={encodeURI(
-                  `https://web.whatsapp.com/send?text=Vote on this poll ${POLL_URL}`
-                )}
-                data-action="share/whatsapp/share"
-              >
-                <WhatsAppIcon className="w-8 h-8" />
-                <span>WhatsApp</span>
-              </a>
-
-              <a
-                className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 flex items-center gap-1 font-semibold w-1/4"
-                type="button"
-                target="_blank"
-                rel="noreferrer"
-                href={encodeURI(
-                  `https://twitter.com/intent/tweet?text=Vote on this pole&url=${POLL_URL}`
-                )}
-                data-action="share/twitter/share"
-              >
-                <TwitterIcon className="w-8 h-8" />
-                <span>Twitter</span>
-              </a> */}
-
             <ShareOnWhatsapp message={`Vote on this poll ${POLL_URL}`} />
             <ShareOnTwitter message={`Vote on this pole&url=${POLL_URL}`} />
           </div>
