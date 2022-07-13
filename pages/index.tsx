@@ -12,6 +12,8 @@ import { pollsRef } from "../firebase";
 import { getRandomString } from "../utils";
 import { addDoc } from "firebase/firestore";
 import Router from "next/router";
+import Spinner from "../components/Spinner";
+import toast from "react-hot-toast";
 
 const Home: NextPage = () => {
   const getId = useUid();
@@ -26,7 +28,7 @@ const Home: NextPage = () => {
     totalVotes: 0,
     // expireAfter: null,
   });
-  const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [formError, setFormError] = useState<boolean>(false);
 
   const handleChange = useCallback((val: string, index: number) => {
@@ -61,11 +63,15 @@ const Home: NextPage = () => {
       setFormError(true);
       return;
     }
-    console.log(data);
-    setShowLoader(true);
-    const docRef = await addDoc(pollsRef, data);
-    setShowLoader(false);
-    Router.push(`/new/${docRef.id}`);
+    try {
+      console.log(data);
+      setLoading(true);
+      const docRef = await addDoc(pollsRef, data);
+      setLoading(false);
+      Router.push(`/new/${docRef.id}`);
+    } catch (e) {
+      toast.error("Something went wrong!");
+    }
   };
 
   return (
@@ -149,7 +155,13 @@ const Home: NextPage = () => {
                 onClick={createPoll}
                 className="flex items-center gap-2 bg-blue-600 w-max py-2 px-3 rounded text-white font-medium cursor-pointer text-xl"
               >
-                Create Poll <ChevronDoubleRight className="h-5 w-5" />
+                {loading ? (
+                  <Spinner height="20px" width="20px" />
+                ) : (
+                  <>
+                    Create Poll <ChevronDoubleRight className="h-5 w-5" />
+                  </>
+                )}
               </div>
             </div>
           </div>
